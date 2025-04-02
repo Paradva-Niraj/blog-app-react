@@ -91,13 +91,13 @@ export class Service{
             //         Query.equal()
             //     ]
             // )            
-            return await this.databases.getDocument(
+            return await this.databases.listDocuments(
                 conf.appwritedatabaseid,
                 conf.appwritecollectionid,
                 [
-                    Query.equal('status',1)
+                    Query.equal('status', 1) // Fetch only active posts
                 ]
-            )
+            );
         } catch (error) {
             console.log("app write",error)
         }

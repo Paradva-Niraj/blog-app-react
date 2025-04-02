@@ -5,6 +5,7 @@ import authService from '../appwrite/auth';
 import { useForm } from 'react-hook-form';
 import { matchPath, useNavigate, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
 
@@ -13,7 +14,7 @@ function Login() {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("")
 
-    const login = async (sata) => {
+    const login = async (data) => {
         setError("")
         try {
             const session = await authService.login(data)
