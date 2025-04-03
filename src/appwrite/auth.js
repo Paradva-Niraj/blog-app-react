@@ -14,9 +14,9 @@ export class AuthSaervice {
         this.account = new Account(this.client)
     }
 
-    async createAccount({email,Password,name }){
+    async createAccount({email,password,name}){
         try{
-            userAccount = await this.account.create(ID.unique(),email,Password,name)
+            userAccount = await this.account.create(ID.unique(),email,password,name)
             if(userAccount)
             {
                 //return userAccount; call another message

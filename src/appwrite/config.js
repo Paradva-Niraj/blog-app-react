@@ -20,6 +20,8 @@ export class Service{
     }
 
     async createPost({title,slug,content,featuredimage,status,userid}){
+        // console.log(title,slug,content,featuredimage,status,userid);
+        
         try {
             return await this.databases.createDocument(conf.appwritedatabaseid,conf.appwritecollectionid,
                 slug,
@@ -95,7 +97,7 @@ export class Service{
                 conf.appwritedatabaseid,
                 conf.appwritecollectionid,
                 [
-                    Query.equal('status', 1) // Fetch only active posts
+                    Query.equal('status', '1') // Fetch only active posts
                 ]
             );
         } catch (error) {
@@ -118,7 +120,7 @@ export class Service{
 
     async deletFile(slug){
         try {
-            return await this,this.bucket.deleteFile(
+            return await this.bucket.deleteFile(
                 conf.appwritebucketid,
                 slug
             )

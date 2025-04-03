@@ -26,7 +26,7 @@ export default function Post() {
     const deletePost = () => {
         service.deletePost(post.$id).then((status) => {
             if (status) {
-                service.deletFile(post.featuredImage);
+                service.deletFile(post.featuredimage);
                 navigate("/");
             }
         });
@@ -37,12 +37,12 @@ export default function Post() {
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
-                        src={service.getFilePrev(post.featuredImage)}
+                        src={service.getFilePrev(post.featuredimage)}
                         alt={post.title}
                         className="rounded-xl"
                     />
 
-                    {isAuthor && (
+                    {!isAuthor && (
                         <div className="absolute right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
                                 <Button bgColor="bg-green-500" className="mr-3">
