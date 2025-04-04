@@ -1,12 +1,47 @@
-# React + Vite
+# 📝 Blog App (Powered by Appwrite & React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **Blog App**, a full-stack blogging platform built with **React**, **Redux**, and **Appwrite** for backend services. This project allows users to **create, edit, delete, and view blog posts**, with authentication and image upload support.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features  
+✅ User Authentication (Login, Signup)  
+✅ Create, Edit, Delete Blog Posts  
+✅ Rich Text Editor (RTE) for Blog Content  
+✅ Image Upload via Appwrite Storage  
+✅ User-Specific Posts Filtering  
+✅ Responsive Design  
+✅ Deployed on **Vercel**
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack  
+- **Frontend:** React, Redux, React Hook Form, TailwindCSS  
+- **Backend:** Appwrite (Database, Authentication, Storage)  
+- **Deployment:** Vercel  
+
+---
+
+## 📦 Installation  
+
+### 🔹 **1. Clone the Repository**  
+```sh
+git clone https://github.com/yourusername/blog-app.git
+cd blog-app
+npm install
+```
+
+### Create a .env file and add your Appwrite credentials:
+```sh
+EACT_APP_APPWRITE_URL=https://cloud.appwrite.io/v1
+REACT_APP_APPWRITE_PROJECT_ID=your_project_id
+REACT_APP_APPWRITE_DATABASE_ID=your_database_id
+REACT_APP_APPWRITE_COLLECTION_ID=your_collection_id
+REACT_APP_APPWRITE_BUCKET_ID=your_bucket_id
+```
+Start Development Server
+
+👨‍💻 Author
+Developed by github.com/Paradva-Niraj
+GitHub: @Paradva-Niraj
+LinkedIn: www.linkedin.com/in/niraj-paradva/
