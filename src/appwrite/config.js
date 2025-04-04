@@ -105,6 +105,21 @@ export class Service{
         }
     }
 
+    async viewMyPost(slug){
+        try {
+            return await this.databases.listDocuments(
+                conf.appwritedatabaseid,
+                conf.appwritecollectionid,
+                [
+                    Query.equal('status', '1'),
+                    Query.equal('userid',slug)
+                ]
+            )
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async uploadfile(file){
         try {
             return await this.bucket.createFile(

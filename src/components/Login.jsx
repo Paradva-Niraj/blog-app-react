@@ -21,7 +21,7 @@ function Login() {
             if (session) {
                 const userdata = await authService.getCurrentUser()
                 if (userdata) dispatch(authLogin(userdata))
-                navigate("/")
+                navigate("/all-post")
             }
             else {
 

@@ -9,12 +9,13 @@ function PostForm({post}) {
     const {register,handleSubmit,watch,setValue,control,getValues} = useForm({
         defaultValues:{
             title:post?.title || '',
-            slug:post?.slug || '',
+            slug:'',
             content:post?.content || '',
-            status:post?.status || 1,
+            status:post?.status || '1',
         }
     })
 
+   
     const naviagte = useNavigate()
     const userData = useSelector((state)=>state.auth.userData)
 
@@ -23,9 +24,9 @@ function PostForm({post}) {
         if(post){
             // console.log("helloo");
             
-            const file = data=image[0] ? await service.uploadfile(data.image[0]) :null;
+            const file = await service.uploadfile(data.image[0]);
             if(file){
-                service.deletFile(post.featuredImage)
+                service.deletFile(post.featuredimage)
             }
             const dbPost = await service.updatePost(post.$id,{
                 ...data,
@@ -91,6 +92,7 @@ function PostForm({post}) {
                     label="Slug :"
                     placeholder="Slug"
                     className="mb-4"
+                    value={getValues("slug")}
                     {...register("slug", { required: true })}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
@@ -108,11 +110,7 @@ function PostForm({post}) {
                 />
                 {post && (
                     <div className="w-full mb-4">
-                        <img
-                            src={service.getFilePrev(post.featuredImage)}
-                            alt={post.title}
-                            className="rounded-lg"
-                        />
+                        <img src={service.getFilePrev(post.featuredimage)} alt={post.title} className="rounded-xl"/>
                     </div>
                 )}
                 <Select
