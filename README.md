@@ -41,7 +41,7 @@ REACT_APP_APPWRITE_BUCKET_ID=your_bucket_id
 ```
 Start Development Server
 
-👨‍💻 Author
-Developed by github.com/Paradva-Niraj
-GitHub: @Paradva-Niraj
+👨‍💻 Author<br />
+Developed by github.com/Paradva-Niraj<br />
+GitHub: @Paradva-Niraj<br />
 LinkedIn: www.linkedin.com/in/niraj-paradva/
