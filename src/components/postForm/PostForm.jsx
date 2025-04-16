@@ -1,57 +1,114 @@
 import { useForm } from "react-hook-form";
-import {Button,Input,Select,RTE} from "../index"
+import { Button, Input, Select, RTE } from "../index"
 import service from '../../appwrite/config'
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useCallback, useEffect } from "react"; 
+import { useCallback, useEffect } from "react";
 
-function PostForm({post}) {
-    const {register,handleSubmit,watch,setValue,control,getValues} = useForm({
-        defaultValues:{
-            title:post?.title || '',
-            slug:'',
-            content:post?.content || '',
-            status:post?.status || '1',
+function PostForm({ post }) {
+    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
+        defaultValues: {
+            title: post?.title || '',
+            slug: '',
+            content: post?.content || '',
+            status: post?.status || '1',
         }
     })
 
-   
-    const naviagte = useNavigate()
-    const userData = useSelector((state)=>state.auth.userData)
 
-    const submit = async (data) =>{
+    const naviagte = useNavigate()
+    const userData = useSelector((state) => state.auth.userData)
+
+    const submit = async (data) => {
         data.status = String(data.status);
-        if(post){
-            // console.log("helloo");
+        if (post) {
+            console.log("helloo");
             
+            var dataimage = null
             const file = await service.uploadfile(data.image[0]);
-            if(file){
+            // change image to cloudynary
+            if (data.image[0]) {
+                const formData = new FormData();
+                formData.append("file", data.image[0]);
+                formData.append("upload_preset", "blogimage");
+                // console.log(formData);
+                var dataimage = null
+                try {
+                    const response = await fetch("https://api.cloudinary.com/v1_1/dbe31jkg1/image/upload", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    dataimage = await response.json();
+
+                    if (dataimage.secure_url) {
+                        console.log("✅ Uploaded Image URL:", dataimage.secure_url);
+                        // return dataimage.secure_url;
+                    } else {
+                        console.error("❌ Upload failed:", dataimage);
+                        return null;
+                    }
+                } catch (error) {
+                    console.error("❌ Upload error:", error);
+                    return null;
+                }
+
+            }
+
+            if (file) {
                 service.deletFile(post.featuredimage)
             }
-            const dbPost = await service.updatePost(post.$id,{
+            data.imageurl=dataimage.secure_url;
+            const dbPost = await service.updatePost(post.$id, {
                 ...data,
-                featuredImage:file?file.$id:undefined,
+                featuredImage: file ? file.$id : undefined,
             })
-            if(dbPost){
+            if (dbPost) {
                 naviagte(`/post/${dbPost.$id}`)
             }
 
         }
-        else{
+        else {
             console.log("je");
-            
+            const formData = new FormData();
+            formData.append("file", data.image[0]);
+            formData.append("upload_preset", "blogimage");
+            // console.log(formData);
+            var dataimage = null
+            try {
+                const response = await fetch("https://api.cloudinary.com/v1_1/dbe31jkg1/image/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                dataimage = await response.json();
+
+                if (dataimage.secure_url) {
+                    console.log("✅ Uploaded Image URL:", dataimage.secure_url);
+                    // return dataimage.secure_url;
+                } else {
+                    console.error("❌ Upload failed:", dataimage);
+                    return null;
+                }
+            } catch (error) {
+                console.error("❌ Upload error:", error);
+                return null;
+            }
+
+
             const file = await service.uploadfile(data.image[0]);
 
-            if(file){
-                // console.log("create post");
-                
+            if (file) {
+                console.log("create post");
+
                 const fileId = file.$id
                 data.featuredimage = fileId
+                data.imageurl = dataimage.secure_url;
                 const dbPost = await service.createPost({
                     ...data,
-                    userid:userData.$id,
+                    userid: userData.$id,
                 })
-                if(dbPost){
+                if (dbPost) {
                     naviagte(`/post/${dbPost.$id}`)
                 }
             }
@@ -63,23 +120,23 @@ function PostForm({post}) {
             return value
                 .trim()
                 .toLowerCase()
-                .replace(/[^a-zA-Z0-9\s]/g, '') 
-                .replace(/\s+/g, '-'); 
+                .replace(/[^a-zA-Z0-9\s]/g, '')
+                .replace(/\s+/g, '-');
         }
         return "";
     }, []);
 
-    useEffect(()=>{
-        const subscription = watch((value,{name})=>{
-            if(name === 'title'){
-                setValue('slug',slugTransform(value.title), { shouldValidate: true});
+    useEffect(() => {
+        const subscription = watch((value, { name }) => {
+            if (name === 'title') {
+                setValue('slug', slugTransform(value.title), { shouldValidate: true });
             }
         });
 
         return () => subscription.unsubscribe && subscription.unsubscribe()
-    },[watch,slugTransform,setValue])
+    }, [watch, slugTransform, setValue])
 
-    return ( 
+    return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
             <div className="w-2/3 px-2">
                 <Input
@@ -110,7 +167,7 @@ function PostForm({post}) {
                 />
                 {post && (
                     <div className="w-full mb-4">
-                        <img src={service.getFilePrev(post.featuredimage)} alt={post.title} className="rounded-xl"/>
+                        <img src={post.imageurl} alt={post.title} className="rounded-xl" />
                     </div>
                 )}
                 <Select
@@ -128,7 +185,7 @@ function PostForm({post}) {
             </div>
         </form>
         // <h1>form for post</h1>
-     );
+    );
 }
 
 export default PostForm;

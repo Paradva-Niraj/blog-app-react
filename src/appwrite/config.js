@@ -19,7 +19,7 @@ export class Service{
         
     }
 
-    async createPost({title,slug,content,featuredimage,status,userid}){
+    async createPost({title,slug,content,featuredimage,status,userid,imageurl}){
         // console.log(title,slug,content,featuredimage,status,userid);
         
         try {
@@ -31,6 +31,7 @@ export class Service{
                     featuredimage,
                     status,
                     userid,
+                    imageurl,
                 }
             )
         } catch (error) {
@@ -38,7 +39,7 @@ export class Service{
         }
     }
 
-    async updatePost(slug,{title,content,featuredimage,status}){
+    async updatePost(slug,{title,content,featuredimage,status,imageurl}){
         try {
             return await this.databases.updateDocument(conf.appwritedatabaseid,
                 conf.appwritecollectionid,
@@ -48,6 +49,7 @@ export class Service{
                     content,
                     featuredimage,
                     status,
+                    imageurl,
                 }
             )
         } catch (error) {

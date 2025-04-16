@@ -39,7 +39,9 @@ export default function Post() {
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
-                        src={service.getFilePrev(post.featuredimage)}
+                        // src={service.getFilePrev(post.featuredimage)}
+                        // update to cloudinary
+                        src={post.imageurl}
                         alt={post.title}
                         className="rounded-xl"
                     />
