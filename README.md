@@ -22,6 +22,13 @@ Welcome to the **Blog App**, a full-stack blogging platform built with **React**
 
 ---
 
+
+![LPtop_view](./LiveDemo/mac.png)
+
+![tab_view](./LiveDemo/gal-tab)
+
+
+
 ## 📦 Installation  
 
 ### 🔹 **1. Clone the Repository**  
