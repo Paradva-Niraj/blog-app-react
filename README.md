@@ -8,8 +8,8 @@ Welcome to the **Blog App**, a full-stack blogging platform built with **React**
 ✅ User Authentication (Login, Signup)  
 ✅ Create, Edit, Delete Blog Posts  
 ✅ Rich Text Editor (RTE) for Blog Content  
-✅ Image Upload via Appwrite Storage  
-✅ User-Specific Posts Filtering  
+✅ Image Upload via Appwrite Storage  (no more support from appwrite)
+    i use cloudinary to create url and that store in app write data base
 ✅ Responsive Design  
 ✅ Deployed on **Vercel**
 
@@ -33,7 +33,7 @@ Welcome to the **Blog App**, a full-stack blogging platform built with **React**
 
 ### 🔹 **1. Clone the Repository**  
 ```sh
-git clone https://github.com/yourusername/blog-app.git
+git clone https://github.com/Paradva-Niraj/blog-app-react.git
 cd blog-app
 npm install
 ```
